@@ -1,6 +1,6 @@
 using {managed} from '@sap/cds/common';
 
-entity Users : managed {
+entity UserMasterData : managed {
     key ID                : UUID;
         FullName          : String;
         Designation       : String;
@@ -21,23 +21,23 @@ entity Users : managed {
         ConfirmPassword   : String;
         Objective         : String;
         // relationship with other details for specific user (1:N)
-        transactions      : Composition of many Transactions
+        transactions      : Composition of many Transaction
                                 on transactions.user = $self;
-        incomeResources   : Composition of many IncomeResources
+        incomeResources   : Composition of many IncomeResource
                                 on incomeResources.user = $self;
-        contacts          : Composition of many BusinessPartnerContacts
+        contacts          : Composition of many BusinessPartnerContact
                                 on contacts.user = $self;
-        monthlyExpenses   : Composition of many MonthlyExpenses
+        monthlyExpenses   : Composition of many MonthlyExpense
                                 on monthlyExpenses.user = $self;
-        yearlyAmounts     : Composition of many YearlyAmounts
+        yearlyAmounts     : Composition of many YearlyAmount
                                 on yearlyAmounts.user = $self;
-        expenseCategories : Composition of many ExpenseCategories
+        expenseCategories : Composition of many ExpenseCategorie
                                 on expenseCategories.user = $self;
         notices           : Composition of many Notice
                                 on notices.user = $self;
 };
 
-entity Transactions : managed { // financial transactions of user
+entity Transaction : managed { // financial transactions of user
     key ID                  : UUID;
         HeaderTitle         : String;
         IncomeResources     : String;
@@ -47,10 +47,10 @@ entity Transactions : managed { // financial transactions of user
         Currency            : String;
         TransactionDate     : Date;
         Description         : String;
-        user                : Association to Users;
+        user                : Association to UserMasterData;
 };
 
-entity IncomeResources : managed { // income resources of user
+entity IncomeResource : managed { // income resources of user
     key ID            : UUID;
         JobTitle      : String;
         Organization  : String;
@@ -60,10 +60,10 @@ entity IncomeResources : managed { // income resources of user
         PayerName     : String;
         Salary        : Decimal;
         Currency      : String;
-        user          : Association to Users;
+        user          : Association to UserMasterData;
 };
 
-entity BusinessPartnerContacts : managed { // business partner contacts of user
+entity BusinessPartnerContact : managed { // business partner contacts of user
     key ID          : UUID;
         Name        : String;
         Email       : String;
@@ -72,10 +72,10 @@ entity BusinessPartnerContacts : managed { // business partner contacts of user
         Location    : String;
         Avatar      : String;
         Designation : String;
-        user        : Association to Users;
+        user        : Association to UserMasterData;
 };
 
-entity MonthlyExpenses : managed { // monthly expenses of user
+entity MonthlyExpense : managed { // monthly expenses of user
     key ID          : UUID;
         ExpenseType : String;
         MonthName   : String;
@@ -83,10 +83,10 @@ entity MonthlyExpenses : managed { // monthly expenses of user
         Currency    : String;
         ExpenseDate : Date;
         Description : String;
-        user        : Association to Users;
+        user        : Association to UserMasterData;
 };
 
-entity YearlyAmounts : managed { // yearly amounts summary of user
+entity YearlyAmount : managed { // yearly amounts summary of user
     key ID           : UUID;
         Year         : Integer;
         Title        : String;
@@ -96,16 +96,16 @@ entity YearlyAmounts : managed { // yearly amounts summary of user
         TotalExpense : Decimal;
         Savings      : Decimal;
         Currency     : String;
-        user         : Association to Users;
+        user         : Association to UserMasterData;
 };
 
-entity ExpenseCategories : managed { // expense categories of user
+entity ExpenseCategorie : managed { // expense categories of user
     key ID           : UUID;
         CategoryName : String;
         CategoryType : String;
         Description  : String;
         IconKey      : String;
-        user         : Association to Users;
+        user         : Association to UserMasterData;
 };
 
 entity Notice : managed { // notices for user like a to-do list
@@ -113,5 +113,5 @@ entity Notice : managed { // notices for user like a to-do list
         Title        : String;
         Description  : String;
         CategoryName : String;
-        user         : Association to Users;
+        user         : Association to UserMasterData;
 }

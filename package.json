@@ -20,7 +20,13 @@
     "start": "cds-serve"
   },
   "private": true,
-  "cds": {},
+  "cds": {
+    "requires": {
+      "db":{
+        "kind": "sqlite"
+      }
+    }
+  },
   "imports": {
     "#cds-models/*": "./@cds-models/*/index.js"
   }
