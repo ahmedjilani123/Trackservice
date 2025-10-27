@@ -3,18 +3,21 @@
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "dependencies": {
+    "@cap-js-community/odata-v2-adapter": "^1.15.5",
     "@cap-js/hana": "^2",
+    "@cap-js/postgres": "^2.0.6",
     "@sap/cds": "^9",
-    "express": "^4"
+    "express": "^4",
+    "postgres": "^3.4.7"
   },
   "devDependencies": {
+    "@cap-js/cds-typer": ">=0.1",
+    "@cap-js/cds-types": "^0.14.0",
     "@cap-js/sqlite": "^2",
     "@sap/cds-dk": "^9",
-    "@cap-js/cds-types": "^0.14.0",
     "@types/node": "^22.0.0",
     "tsx": "^4",
-    "typescript": "^5",
-    "@cap-js/cds-typer": ">=0.1"
+    "typescript": "^5"
   },
   "scripts": {
     "start": "cds-serve"
@@ -22,8 +25,21 @@
   "private": true,
   "cds": {
     "requires": {
-      "db":{
-        "kind": "sqlite"
+      "db": {
+        "kind": "postgres",
+        "impl": "@cap-js/postgres",
+        "requestTimeout": 90000,
+        "credentials": {
+          "host": "ep-holy-math-a1fja9rf-pooler.ap-southeast-1.aws.neon.tech",
+          "port": 5432,
+          "user": "neondb_owner",
+          "password": "npg_SCN1IoHBK4cG",
+          "database": "neondb",
+          "ssl": true
+        }
+      },
+      "auth": {
+        "kind": "mocked"
       }
     }
   },

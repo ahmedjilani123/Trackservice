@@ -1,3 +1,6 @@
+namespace track;
+
+
 using {managed} from '@sap/cds/common';
 
 entity UserMasterData : managed {
@@ -21,7 +24,7 @@ entity UserMasterData : managed {
         ConfirmPassword   : String;
         Objective         : String;
         // relationship with other details for specific user (1:N)
-        transactions      : Composition of many Transaction
+        transactions      : Composition of many MyTransaction
                                 on transactions.user = $self;
         incomeResources   : Composition of many IncomeResource
                                 on incomeResources.user = $self;
@@ -37,7 +40,7 @@ entity UserMasterData : managed {
                                 on notices.user = $self;
 };
 
-entity Transaction : managed { // financial transactions of user
+entity MyTransaction : managed { // financial transactions of user
     key ID                  : UUID;
         HeaderTitle         : String;
         IncomeResources     : String;
